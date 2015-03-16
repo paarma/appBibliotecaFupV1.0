@@ -46,3 +46,4 @@ public class LibroListAdapter extends ArrayAdapter<Libro> {
         textView.setText(libroActual.getCantidad());
     }
 }
+
