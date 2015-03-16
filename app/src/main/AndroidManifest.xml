@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.developer.pablo.appbibliotecafup.Activity_admin"
+                  android:label="@string/title_activity_admin">
+        </activity>
+        <activity android:name="com.developer.pablo.appbibliotecafup.Activity_crear_libro"
+            android:label="@string/title_activity_crear_libro">
+        </activity>
+        <activity android:name="com.developer.pablo.appbibliotecafup.Activity_listado_libros"
+            android:label="@string/title_activity_crear_libro">
+        </activity>
     </application>
 
 </manifest>

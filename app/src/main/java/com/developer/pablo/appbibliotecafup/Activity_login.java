@@ -1,5 +1,6 @@
 package com.developer.pablo.appbibliotecafup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -42,6 +43,12 @@ public class Activity_login extends ActionBarActivity {
         String msn = String.format(" Usuario ingresado: %s",tbxUsuario.getText());
         //Mensaje visual
         Toast.makeText(this, msn, Toast.LENGTH_SHORT).show();
+
+        //***ojo pendiente llamado tarea login
+        Intent goInicial = new Intent(Activity_login.this, Activity_admin.class);
+        startActivity(goInicial);
+        //*** termina llamado tarea login
+
         btnLogin.setEnabled(false);
         limpiar();
     }
