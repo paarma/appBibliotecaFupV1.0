@@ -43,7 +43,7 @@ public class LibroListAdapter extends ArrayAdapter<Libro> {
         textView.setText(libroActual.getIsbn());
 
         textView = (TextView) view.findViewById(R.id.idTvCantidad);
-        textView.setText(libroActual.getCantidad());
+        textView.setText(String.valueOf(libroActual.getCantidad()));
     }
 }
 
