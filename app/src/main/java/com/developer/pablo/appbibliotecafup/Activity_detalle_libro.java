@@ -24,7 +24,7 @@ public class Activity_detalle_libro extends Activity {
         //Se obtiene el libroSeleccionado enviado como parametro
         libro = (Libro) getIntent().getExtras().getSerializable("libroSeleccionado");
         if(libro != null){
-            Log.i("Activity_detalle_libro", ">>>>> Titulo libro seleccionado: " + libro.getIsbn());
+            Log.i("Activity_detalle_libro", ">>>>> Codigo libro seleccionado: " + libro.getIsbn());
             inicializarComponentes();
         }
     }
