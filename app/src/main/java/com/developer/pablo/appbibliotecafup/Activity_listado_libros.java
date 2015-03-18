@@ -1,6 +1,7 @@
 package com.developer.pablo.appbibliotecafup;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,10 +35,17 @@ public class Activity_listado_libros extends Activity {
         inicializarListaLibros();
     }
 
+    /**
+     * Se inicializan los componentes visuales
+     */
     private void inicializarComponentes() {
         libroListView = (ListView) findViewById(R.id.listView);
     }
 
+    /**
+     * Se carga el listado de libros provenientes de la BD,
+     * ademas contiene el evento onclick del item para capturar el mismo
+     */
     private void inicializarListaLibros(){
         //////////////ojooooo inicializar el "new ArrayList<Libro>()" con el listado de libros de la bd
         ///////////// crear tarea listado libros
@@ -67,8 +75,20 @@ public class Activity_listado_libros extends Activity {
                 libroSeleccionado = listaLibro.get(posicion);
                 String msn = "Seleccionado :"+libroSeleccionado.getTitulo();
                 Toast.makeText(Activity_listado_libros.this, msn, Toast.LENGTH_SHORT).show();
+                redireccionaDetalleLibro();
             }
         });
+    }
+
+    /**
+     * Metodo encargado de redireccionar a la pantalla de detalle libro
+     */
+    public void redireccionaDetalleLibro(){
+        Intent goDetalleLibro = new Intent(Activity_listado_libros.this, Activity_detalle_libro.class);
+
+        //Se envia el libroSeleccionado como parametro para la pagina detalleLibro
+        goDetalleLibro.putExtra("libroSeleccionado",libroSeleccionado);
+        startActivity(goDetalleLibro);
     }
 
 }

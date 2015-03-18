@@ -1,9 +1,12 @@
 package com.developer.pablo.appbibliotecafup.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by pablo on 15/03/15.
  */
-public class Libro {
+@SuppressWarnings("serial")
+public class Libro implements Serializable {
 
     private int idLibro;
     private String isbn;

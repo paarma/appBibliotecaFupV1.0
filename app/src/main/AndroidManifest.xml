@@ -25,6 +25,9 @@
         <activity android:name="com.developer.pablo.appbibliotecafup.Activity_listado_libros"
             android:label="@string/title_activity_crear_libro">
         </activity>
+        <activity android:name="com.developer.pablo.appbibliotecafup.Activity_detalle_libro"
+            android:label="@string/title_activity_detalle_libro">
+        </activity>
     </application>
 
 </manifest>
