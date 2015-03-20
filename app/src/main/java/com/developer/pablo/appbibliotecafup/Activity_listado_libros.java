@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.developer.pablo.appbibliotecafup.modelo.Libro;
+import com.developer.pablo.appbibliotecafup.util.Configuracion;
 import com.developer.pablo.appbibliotecafup.util.LibroListAdapter;
 
 import org.ksoap2.SoapEnvelope;
@@ -122,10 +123,13 @@ public class Activity_listado_libros extends Activity {
      */
     private class TareaWsListadoLibros extends AsyncTask<String,Integer,Boolean> {
 
-        private final String SOAP_ACTION = "http://10.0.2.2/wsPhpBibliotecaFup/server.php/listadoLibros";
+        //Objeto de la clase configuracion la cual contiene atributos generales y conf. para conexion al server
+        Configuracion conf = new Configuracion();
+
+        private final String SOAP_ACTION = conf.getUrl()+"/listadoLibros";
         private final String METHOD_NAME = "listadoLibros";
-        private final String NAMESPACE = "http://10.0.2.2/wsPhpBibliotecaFup/";
-        private final String URL = "http://10.0.2.2/wsPhpBibliotecaFup/server.php";
+        private final String NAMESPACE = conf.getNamespace();
+        private final String URL = conf.getUrl();
 
         boolean resultadoTarea = true;
 
