@@ -1,8 +1,11 @@
 package com.developer.pablo.appbibliotecafup;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,18 +15,22 @@ import android.widget.Toast;
 import com.developer.pablo.appbibliotecafup.modelo.Libro;
 import com.developer.pablo.appbibliotecafup.util.LibroListAdapter;
 
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by pablo on 16/03/15.
  */
 public class Activity_listado_libros extends Activity {
 
-    //private List<Libro> listaLibros;
     private ArrayAdapter<Libro> adapterLibro;
     private ListView libroListView;
 
+    private ArrayList<Libro> listaLibro = new ArrayList<Libro>();;
     private Libro libroSeleccionado;
 
     @Override
@@ -47,11 +54,10 @@ public class Activity_listado_libros extends Activity {
      * ademas contiene el evento onclick del item para capturar el mismo
      */
     private void inicializarListaLibros(){
-        //////////////ojooooo inicializar el "new ArrayList<Libro>()" con el listado de libros de la bd
         ///////////// crear tarea listado libros
         //adapterLibro = new LibroListAdapter(this, new ArrayList<Libro>());
 
-        final List<Libro> listaLibro = new ArrayList<Libro>();
+        /*final List<Libro> listaLibro = new ArrayList<Libro>();
 
         Libro lib1 = new Libro();
         lib1.setTitulo("Libro 1");
@@ -77,6 +83,20 @@ public class Activity_listado_libros extends Activity {
                 Toast.makeText(Activity_listado_libros.this, msn, Toast.LENGTH_SHORT).show();
                 redireccionaDetalleLibro();
             }
+        }); */
+
+        TareaWsListadoLibros tareaListarLibro = new TareaWsListadoLibros();
+        tareaListarLibro.execute();
+
+        //Evento al seleccionar un elemento de la lista
+        libroListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> padre, View vista, int posicion, long id) {
+                libroSeleccionado = listaLibro.get(posicion);
+                String msn = "Seleccionado :"+libroSeleccionado.getTitulo();
+                Toast.makeText(Activity_listado_libros.this, msn, Toast.LENGTH_SHORT).show();
+                redireccionaDetalleLibro();
+            }
         });
     }
 
@@ -89,6 +109,71 @@ public class Activity_listado_libros extends Activity {
         //Se envia el libroSeleccionado como parametro para la pagina detalleLibro
         goDetalleLibro.putExtra("libroSeleccionado",libroSeleccionado);
         startActivity(goDetalleLibro);
+    }
+
+
+    ////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
+    //////////////////////////////////////////////////// tareas
+    //Tarea Asíncrona para llamar al WS de consulta en segundo plano
+
+    /**
+     * Tarea encargada de listar los libros de la biblioteca
+     */
+    private class TareaWsListadoLibros extends AsyncTask<String,Integer,Boolean> {
+
+        private final String SOAP_ACTION = "http://10.0.2.2/wsPhpBibliotecaFup/server.php/listadoLibros";
+        private final String METHOD_NAME = "listadoLibros";
+        private final String NAMESPACE = "http://10.0.2.2/wsPhpBibliotecaFup/";
+        private final String URL = "http://10.0.2.2/wsPhpBibliotecaFup/server.php";
+
+        boolean resultadoTarea = true;
+
+        @SuppressLint("LongLogTag")
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+            //request.addProperty("name",tbxTexto1.getText().toString());
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.bodyOut = request;
+
+            HttpTransportSE transporte = new HttpTransportSE(URL);
+
+            try {
+                transporte.call(SOAP_ACTION, envelope);
+                java.util.Vector<SoapObject> rs = (java.util.Vector<SoapObject>) envelope.getResponse();
+
+                if (rs != null)
+                {
+                    for (SoapObject libroSoap : rs)
+                    {
+                        Libro lib = new Libro();
+                        lib.setIdLibro(Integer.parseInt(libroSoap.getProperty(0).toString()));
+                        lib.setIsbn(libroSoap.getProperty(1).toString());
+                        lib.setTitulo(libroSoap.getProperty(2).toString());
+                        lib.setCantidad(Integer.parseInt(libroSoap.getProperty(3).toString()));
+                        listaLibro.add(lib);
+                    }
+                }
+            }catch (Exception e){
+                resultadoTarea = false;
+                Log.d("Activity_listado_libros ", "xxx Error TareaWsListadoLibros: "+e.getMessage());
+            }
+            return resultadoTarea;
+        }
+
+        public void onPostExecute(Boolean result){
+
+            if(result){
+                adapterLibro = new LibroListAdapter(Activity_listado_libros.this, listaLibro);
+                libroListView.setAdapter(adapterLibro);
+            }else{
+                String msn = "Error listando libros";
+                Toast.makeText(Activity_listado_libros.this, msn, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }
