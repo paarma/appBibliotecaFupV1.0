@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.developer.pablo.appbibliotecafup.modelo.Rol;
 import com.developer.pablo.appbibliotecafup.modelo.Usuario;
 import com.developer.pablo.appbibliotecafup.util.Configuracion;
+import com.developer.pablo.appbibliotecafup.util.TareasGenerales;
 import com.developer.pablo.appbibliotecafup.util.TextChangeListener;
 
 import org.ksoap2.SoapEnvelope;
@@ -45,16 +47,11 @@ public class Activity_login extends ActionBarActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 btnLogin = (Button) findViewById(R.id.btnLogin);
-                btnLogin.setEnabled(!s.toString().trim().isEmpty());
             }
         });
     }
 
     public void login(View view){
-        String msn = String.format(" Usuario ingresado: %s",tbxUsuario.getText().toString());
-        //Mensaje visual
-        Toast.makeText(this, msn, Toast.LENGTH_SHORT).show();
-
         TareaWSLogin tareaLogin = new TareaWSLogin();
         tareaLogin.execute();
     }
@@ -119,7 +116,16 @@ public class Activity_login extends ActionBarActivity {
                         usuario.setCodigo(user.getProperty(7).toString());
                         usuario.setClave(user.getProperty(8).toString());
 
-                        Log.i("Acticity_login.java",">>>>>>>>>>>> idUsuario "+usuario.getIdUsuario());
+                        //Se carga el rol del usuario
+                        TareasGenerales tareasGenerales = new TareasGenerales();
+                        Rol rol = tareasGenerales.buscarRol(Integer.parseInt(user.getProperty("ID_ROL").toString()));
+
+                        if(rol != null){
+                            usuario.setRol(rol);
+                            Log.i("Acticity_login.java",">>>>>>>>>>>> rolDeUsuario: "+usuario.getRol().getDescripcion());
+                        }
+
+                        Log.i("Acticity_login.java",">>>>>>>>>>>> idUsuario: "+usuario.getIdUsuario());
                         break;
                     }
                 }
@@ -132,11 +138,22 @@ public class Activity_login extends ActionBarActivity {
 
         protected void onPostExecute(Boolean result) {
             if (result) {
-                btnLogin.setEnabled(false);
                 limpiar();
 
-                Intent goInicial = new Intent(Activity_login.this, Activity_admin.class);
-                startActivity(goInicial);
+                //Redireccion segun rol
+                if(usuario != null){
+                    Intent goInicial = null;
+
+                    //Administrador
+                    if(usuario.getRol().getDescripcion().equalsIgnoreCase("ADMIN")){
+                        goInicial = new Intent(Activity_login.this, Activity_admin.class);
+                    }
+
+                    startActivity(goInicial);
+
+                }else{
+                    Toast.makeText(Activity_login.this, "Usuario o Clave incorrectos" , Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
