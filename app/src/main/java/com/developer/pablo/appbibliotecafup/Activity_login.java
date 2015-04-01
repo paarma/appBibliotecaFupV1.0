@@ -106,15 +106,15 @@ public class Activity_login extends ActionBarActivity {
                     for (SoapObject user : rs)
                     {
                         usuario = new Usuario();
-                        usuario.setIdUsuario(Integer.parseInt(user.getProperty(0).toString()));
-                        usuario.setCedula(Long.parseLong(user.getProperty(1).toString()));
-                        usuario.setNombre(user.getProperty(2).toString());
-                        usuario.setApellido(user.getProperty(3).toString());
-                        usuario.setTelefono(Long.parseLong(user.getProperty(4).toString()));
-                        usuario.setDireccion(user.getProperty(5).toString());
-                        usuario.setEmail(user.getProperty(6).toString());
-                        usuario.setCodigo(user.getProperty(7).toString());
-                        usuario.setClave(user.getProperty(8).toString());
+                        usuario.setIdUsuario(Integer.parseInt(user.getProperty("ID_USUARIO").toString()));
+                        usuario.setCedula(Long.parseLong(user.getProperty("CEDULA").toString()));
+                        usuario.setNombre(user.getProperty("NOMBRE").toString());
+                        usuario.setApellido(user.getProperty("APELLIDO").toString());
+                        usuario.setTelefono(Long.parseLong(user.getProperty("TELEFONO").toString()));
+                        usuario.setDireccion(user.getProperty("DIRECCION").toString());
+                        usuario.setEmail(user.getProperty("EMAIL").toString());
+                        usuario.setCodigo(user.getProperty("CODIGO").toString());
+                        usuario.setClave(user.getProperty("CLAVE").toString());
 
                         //Se carga el rol del usuario
                         TareasGenerales tareasGenerales = new TareasGenerales();
@@ -126,6 +126,7 @@ public class Activity_login extends ActionBarActivity {
                         }
 
                         Log.i("Acticity_login.java",">>>>>>>>>>>> idUsuario: "+usuario.getIdUsuario());
+                        Log.i("Acticity_login.java",">>>>>>>>>>>> email: "+usuario.getEmail());
                         break;
                     }
                 }

@@ -43,8 +43,8 @@ public class TareasGenerales {
                 for (SoapObject rolObject : rs)
                 {
                     rolEncontrado = new Rol();
-                    rolEncontrado.setIdRol((Integer.parseInt(rolObject.getProperty(0).toString())));
-                    rolEncontrado.setDescripcion(rolObject.getProperty(1).toString());
+                    rolEncontrado.setIdRol((Integer.parseInt(rolObject.getProperty("ID_ROL").toString())));
+                    rolEncontrado.setDescripcion(rolObject.getProperty("DESCRIPCION").toString());
                     Log.i("TareaWSRol", ">>>>>>>>>>>> rolEncontrado: " + rolEncontrado.getDescripcion());
                     break;
                 }

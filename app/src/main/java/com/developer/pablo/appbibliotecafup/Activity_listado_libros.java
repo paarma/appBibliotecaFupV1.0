@@ -154,10 +154,10 @@ public class Activity_listado_libros extends Activity {
                     for (SoapObject libroSoap : rs)
                     {
                         Libro lib = new Libro();
-                        lib.setIdLibro(Integer.parseInt(libroSoap.getProperty(0).toString()));
-                        lib.setIsbn(libroSoap.getProperty(1).toString());
-                        lib.setTitulo(libroSoap.getProperty(2).toString());
-                        lib.setCantidad(Integer.parseInt(libroSoap.getProperty(3).toString()));
+                        lib.setIdLibro(Integer.parseInt(libroSoap.getProperty("ID_LIBRO").toString()));
+                        lib.setIsbn(libroSoap.getProperty("ISBN").toString());
+                        lib.setTitulo(libroSoap.getProperty("TITULO").toString());
+                        lib.setCantidad(Integer.parseInt(libroSoap.getProperty("CANTIDAD").toString()));
                         listaLibro.add(lib);
                     }
                 }
