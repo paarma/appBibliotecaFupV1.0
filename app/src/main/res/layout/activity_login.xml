@@ -3,47 +3,60 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Activity_login">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".Activiti_login">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bilioteca Fup"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/tbxUsuario"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:hint="Usuario" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+        android:layout_width="fill_parent" android:layout_height="fill_parent"  android:padding="10dip"
+        android:weightSum="1">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/tbxClave"
-        android:layout_marginTop="66dp"
-        android:layout_below="@+id/tbxUsuario"
-        android:layout_centerHorizontal="true"
-        android:hint="Clave" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/fup"
+            android:layout_weight="0.15" />
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Aceptar"
-        android:id="@+id/btnLogin"
-        android:layout_below="@+id/tbxClave"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
-        android:onClick="login" />
+        <TextView android:id="@+id/link_to_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:gravity="center"
+            android:textSize="20dip"
+            android:textColor="#0b84aa"
+            android:text="Biblioteca Fup" />
+
+        <EditText android:id="@+id/tbxUsuario" android:layout_height="wrap_content"
+            android:layout_width="fill_parent" android:hint="Codigo" android:inputType="textEmailAddress" />
+
+        <EditText android:id="@+id/tbxClave" android:layout_height="wrap_content"
+            android:layout_width="fill_parent" android:hint="Password" android:inputType="textPassword"
+            android:layout_marginTop="15dip" android:layout_marginBottom="20dip" />
+
+
+        <Button android:id="@+id/btnLogin" android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="enviar"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:onClick="login"
+            android:enabled="true"
+            android:background="#ff71a2ff" />
+
+        <TextView android:id="@+id/login_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:layout_marginBottom="40dip"
+            android:gravity="center"
+            android:textSize="20dip"
+            android:textColor="#ffaa1009" />
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>
