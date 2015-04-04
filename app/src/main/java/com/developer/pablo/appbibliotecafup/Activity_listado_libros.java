@@ -13,15 +13,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.developer.pablo.appbibliotecafup.modelo.Libro;
-import com.developer.pablo.appbibliotecafup.util.Configuracion;
 import com.developer.pablo.appbibliotecafup.util.LibroListAdapter;
-
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
+import com.developer.pablo.appbibliotecafup.util.TareasGenerales;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pablo on 16/03/15.
@@ -31,7 +27,7 @@ public class Activity_listado_libros extends Activity {
     private ArrayAdapter<Libro> adapterLibro;
     private ListView libroListView;
 
-    private ArrayList<Libro> listaLibro = new ArrayList<Libro>();;
+    private List<Libro> listaLibro = new ArrayList<Libro>();;
     private Libro libroSeleccionado;
 
     @Override
@@ -55,36 +51,6 @@ public class Activity_listado_libros extends Activity {
      * ademas contiene el evento onclick del item para capturar el mismo
      */
     private void inicializarListaLibros(){
-        ///////////// crear tarea listado libros
-        //adapterLibro = new LibroListAdapter(this, new ArrayList<Libro>());
-
-        /*final List<Libro> listaLibro = new ArrayList<Libro>();
-
-        Libro lib1 = new Libro();
-        lib1.setTitulo("Libro 1");
-        lib1.setIsbn("123");
-        lib1.setCantidad(1);
-        listaLibro.add(lib1);
-
-        Libro lib2 = new Libro();
-        lib2.setTitulo("Libro 2");
-        lib2.setIsbn("456");
-        lib2.setCantidad(2);
-        listaLibro.add(lib2);
-
-        adapterLibro = new LibroListAdapter(this, listaLibro);
-        libroListView.setAdapter(adapterLibro);
-
-        //Evento al seleccionar un elemento de la lista
-        libroListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> padre, View vista, int posicion, long id) {
-                libroSeleccionado = listaLibro.get(posicion);
-                String msn = "Seleccionado :"+libroSeleccionado.getTitulo();
-                Toast.makeText(Activity_listado_libros.this, msn, Toast.LENGTH_SHORT).show();
-                redireccionaDetalleLibro();
-            }
-        }); */
 
         TareaWsListadoLibros tareaListarLibro = new TareaWsListadoLibros();
         tareaListarLibro.execute();
@@ -123,44 +89,15 @@ public class Activity_listado_libros extends Activity {
      */
     private class TareaWsListadoLibros extends AsyncTask<String,Integer,Boolean> {
 
-        //Objeto de la clase configuracion la cual contiene atributos generales y conf. para conexion al server
-        Configuracion conf = new Configuracion();
-
-        private final String SOAP_ACTION = conf.getUrl()+"/listadoLibros";
-        private final String METHOD_NAME = "listadoLibros";
-        private final String NAMESPACE = conf.getNamespace();
-        private final String URL = conf.getUrl();
-
         boolean resultadoTarea = true;
 
         @SuppressLint("LongLogTag")
         @Override
         protected Boolean doInBackground(String... params) {
 
-            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-            //request.addProperty("name",tbxTexto1.getText().toString());
-
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.bodyOut = request;
-
-            HttpTransportSE transporte = new HttpTransportSE(URL);
-
             try {
-                transporte.call(SOAP_ACTION, envelope);
-                java.util.Vector<SoapObject> rs = (java.util.Vector<SoapObject>) envelope.getResponse();
-
-                if (rs != null)
-                {
-                    for (SoapObject libroSoap : rs)
-                    {
-                        Libro lib = new Libro();
-                        lib.setIdLibro(Integer.parseInt(libroSoap.getProperty("ID_LIBRO").toString()));
-                        lib.setIsbn(libroSoap.getProperty("ISBN").toString());
-                        lib.setTitulo(libroSoap.getProperty("TITULO").toString());
-                        lib.setCantidad(Integer.parseInt(libroSoap.getProperty("CANTIDAD").toString()));
-                        listaLibro.add(lib);
-                    }
-                }
+                TareasGenerales tareasGenerales = new TareasGenerales();
+                listaLibro = tareasGenerales.buscarLibros();
             }catch (Exception e){
                 resultadoTarea = false;
                 Log.d("Activity_listado_libros ", "xxx Error TareaWsListadoLibros: "+e.getMessage());
