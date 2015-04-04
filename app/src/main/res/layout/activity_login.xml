@@ -16,7 +16,7 @@
             android:layout_height="100dp"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/fup"
+            android:src="@mipmap/fup"
             android:layout_weight="0.15" />
 
         <TextView android:id="@+id/link_to_register"
