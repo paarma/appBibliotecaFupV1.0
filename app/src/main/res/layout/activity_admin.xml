@@ -2,37 +2,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bilioteca Fup"
-        android:id="@+id/textViewTitulo"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView2"
+        android:src="@mipmap/fup"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar libros"
+        android:id="@+id/btnCrearLibro"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ff71a2ff"
+        android:onClick="crearLibro"
+        android:layout_marginTop="150dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Listar libros"
+        android:id="@+id/btnListadoLibros"
+        android:background="#ff71a2ff"
+        android:onClick="listadoLibros"
+        android:layout_below="@+id/btnCrearLibro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Autor"
+        android:id="@+id/btnAutor"
+        android:background="#ff71a2ff"
+        android:layout_below="@+id/btnListadoLibros"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Genero"
+        android:background="#ff71a2ff"
+        android:id="@+id/btnGenero"
+        android:layout_below="@+id/btnAutor"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="20dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Crear Libro"
-        android:id="@+id/btnCrearLibro"
-        android:layout_marginTop="80dp"
-        android:layout_below="@+id/textViewTitulo"
-        android:layout_toLeftOf="@+id/textViewTitulo"
-        android:layout_toStartOf="@+id/textViewTitulo"
-        android:onClick="crearLibro" />
+        android:text="Agregar Editorial"
+        android:background="#ff71a2ff"
+        android:id="@+id/btnEditorial"
+        android:layout_below="@+id/btnGenero"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Listado Libros"
-        android:id="@+id/btnListadoLibros"
-        android:layout_alignTop="@+id/btnCrearLibro"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="57dp"
-        android:layout_marginEnd="57dp"
-        android:onClick="listadoLibros" />
 
 </RelativeLayout>
