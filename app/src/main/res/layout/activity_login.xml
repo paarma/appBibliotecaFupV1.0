@@ -38,13 +38,13 @@
 
         <Button android:id="@+id/btnLogin" android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="enviar"
+            android:text="Aceptar"
             android:layout_gravity="center_horizontal"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:onClick="login"
             android:enabled="true"
-            android:background="#ff71a2ff" />
+            android:background="@drawable/btn_default" />
 
         <TextView android:id="@+id/login_error"
             android:layout_width="fill_parent"
