@@ -12,7 +12,7 @@ public class Rol implements Serializable {
 
     public Rol() {
         this.idRol = 0;
-        this.descripcion = null;
+        this.descripcion = "";
     }
 
     public Rol(int idRol, String descripcion) {

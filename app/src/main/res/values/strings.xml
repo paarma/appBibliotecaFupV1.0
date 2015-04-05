@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppBibliotecaFup</string>
+    <string name="app_name">Biblioteca FUP</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -8,5 +8,5 @@
     <string name="title_activity_crear_libro">Crear Libro</string>
     <string name="title_activity_listado_libros">Listado Libros</string>
     <string name="title_activity_detalle_libro">Detalle Libro</string>
-
+    <string name="title_activity_buscador_avanzado_libro">Busquedaa Avanzada Libro</string>
 </resources>

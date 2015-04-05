@@ -27,13 +27,21 @@ public class Activity_listado_libros extends Activity {
     private ArrayAdapter<Libro> adapterLibro;
     private ListView libroListView;
 
-    private List<Libro> listaLibro = new ArrayList<Libro>();;
-    private Libro libroSeleccionado;
+    private List<Libro> listaLibro = new ArrayList<Libro>();
+    private Libro libroSeleccionado, libroBuscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_libros);
+
+        //Se obtiene el libro a buscar enviado como parametro si existe
+        Bundle parametros = this.getIntent().getExtras();
+        if(parametros != null){
+            if(getIntent().getExtras().getSerializable("libroBuscar") != null){
+                libroBuscar = (Libro) getIntent().getExtras().getSerializable("libroBuscar");
+            }
+        }
 
         inicializarComponentes();
         inicializarListaLibros();
@@ -44,6 +52,15 @@ public class Activity_listado_libros extends Activity {
      */
     private void inicializarComponentes() {
         libroListView = (ListView) findViewById(R.id.listView);
+
+        /**
+         * Se inicializa el objeto libroBuscar si este no llega por el
+         * buscadorAvanzado de libros. Funcionalidad necesaria para
+         * fijar los parametros por defecto para la busqueda de libro
+         */
+        if(libroBuscar == null){
+            libroBuscar = new Libro();
+        }
     }
 
     /**
@@ -78,6 +95,14 @@ public class Activity_listado_libros extends Activity {
         startActivity(goDetalleLibro);
     }
 
+    /**
+     * Metodo encargado de redireccionar al buscador avanzado de libros
+     */
+    public void redireccionaBuscadorLibro(View view){
+        Intent goBuscadorLibro = new Intent(Activity_listado_libros.this, BuscadorLibroAvanzado.class);
+        startActivity(goBuscadorLibro);
+    }
+
 
     ////////////////////////////////////////////////////
     ////////////////////////////////////////////////////
@@ -97,7 +122,7 @@ public class Activity_listado_libros extends Activity {
 
             try {
                 TareasGenerales tareasGenerales = new TareasGenerales();
-                listaLibro = tareasGenerales.buscarLibros();
+                listaLibro = tareasGenerales.buscarLibros(libroBuscar);
             }catch (Exception e){
                 resultadoTarea = false;
                 Log.d("Activity_listado_libros ", "xxx Error TareaWsListadoLibros: "+e.getMessage());

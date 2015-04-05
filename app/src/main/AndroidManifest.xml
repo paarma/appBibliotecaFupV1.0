@@ -39,6 +39,9 @@
         <activity android:name="com.developer.pablo.appbibliotecafup.Activity_detalle_libro"
             android:label="@string/title_activity_detalle_libro">
         </activity>
+        <activity android:name="com.developer.pablo.appbibliotecafup.BuscadorLibroAvanzado"
+            android:label="@string/title_activity_buscador_avanzado_libro">
+        </activity>
     </application>
 
 </manifest>

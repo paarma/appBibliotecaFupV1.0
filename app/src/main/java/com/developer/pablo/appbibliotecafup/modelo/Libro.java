@@ -15,8 +15,8 @@ public class Libro implements Serializable {
 
     public Libro(){
         this.idLibro = 0;
-        this.isbn = null;
-        this.titulo = null;
+        this.isbn = "";
+        this.titulo = "";
         this.cantidad = 0;
     }
 

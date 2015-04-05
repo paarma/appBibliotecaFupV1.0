@@ -68,9 +68,13 @@ public class TareasGenerales {
 
     /**
      * Metodo encargado de retornar el listado de libros segun busqueda
+     * @param libroBuscar objeto de la clase Libro el cual contiene los parametros
+     *                    de busqueda ya sean fijados o por defecto. En el caso
+     *                    de tenerlos por defecto (new Libro()) se listaran todos los libros
+     *                    precentes.
      * @return ListadoLibros
      */
-    public List<Libro> buscarLibros(){
+    public List<Libro> buscarLibros(Libro libroBuscar){
 
         final String SOAP_ACTION = conf.getUrl()+"/listadoLibros";
         final String METHOD_NAME = "listadoLibros";
@@ -79,7 +83,8 @@ public class TareasGenerales {
         List<Libro> listaLibro = new ArrayList<Libro>();
 
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-        //request.addProperty("name",tbxTexto1.getText().toString());
+        request.addProperty("titulo",libroBuscar.getTitulo());
+        request.addProperty("isbn",libroBuscar.getIsbn());
 
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.bodyOut = request;

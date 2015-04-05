@@ -22,13 +22,13 @@ public class Usuario implements Serializable {
     public Usuario() {
         this.idUsuario = 0;
         this.cedula = null;
-        this.nombre = null;
-        this.apellido = null;
+        this.nombre = "";
+        this.apellido = "";
         this.telefono = null;
-        this.direccion = null;
-        this.email = null;
-        this.codigo = null;
-        this.clave = null;
+        this.direccion = "";
+        this.email = "";
+        this.codigo = "";
+        this.clave = "";
         this.rol = null;
     }
 
