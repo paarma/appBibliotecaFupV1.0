@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="fill_parent" android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="100dp"
@@ -12,14 +12,13 @@
         android:layout_marginTop="30dp"/>
 
     <Button
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar libros"
-        android:id="@+id/btnCrearLibro"
+        android:text="Libros"
+        android:id="@+id/btnLibro"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/btn_default"
-        android:onClick="crearLibro"
         android:layout_marginTop="150dp" />
 
     <Button
@@ -28,22 +27,21 @@
         android:text="Listar libros"
         android:id="@+id/btnListadoLibros"
         android:background="@drawable/btn_default"
-        android:onClick="listadoLibros"
-        android:layout_below="@+id/btnCrearLibro"
+        android:layout_below="@+id/btnLibro"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp" />
 
     <Button
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Autor"
+        android:text="Autores"
         android:id="@+id/btnAutor"
         android:background="@drawable/btn_default"
         android:layout_below="@+id/btnListadoLibros"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/btnLibro"
+        android:layout_alignStart="@+id/btnLibro" />
 
     <Button
         android:layout_width="fill_parent"
