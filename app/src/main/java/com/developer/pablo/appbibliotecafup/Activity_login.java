@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.developer.pablo.appbibliotecafup.modelo.Rol;
 import com.developer.pablo.appbibliotecafup.modelo.Usuario;
 import com.developer.pablo.appbibliotecafup.util.Configuracion;
-import com.developer.pablo.appbibliotecafup.util.TareasGenerales;
 import com.developer.pablo.appbibliotecafup.util.TextChangeListener;
 
 import org.ksoap2.SoapEnvelope;
@@ -115,15 +113,7 @@ public class Activity_login extends ActionBarActivity {
                         usuario.setEmail(user.getProperty("EMAIL").toString());
                         usuario.setCodigo(user.getProperty("CODIGO").toString());
                         usuario.setClave(user.getProperty("CLAVE").toString());
-
-                        //Se carga el rol del usuario
-                        TareasGenerales tareasGenerales = new TareasGenerales();
-                        Rol rol = tareasGenerales.buscarRol(Integer.parseInt(user.getProperty("ID_ROL").toString()));
-
-                        if(rol != null){
-                            usuario.setRol(rol);
-                            Log.i("Acticity_login.java",">>>>>>>>>>>> rolDeUsuario: "+usuario.getRol().getDescripcion());
-                        }
+                        usuario.setRol(user.getProperty("ROL").toString());
 
                         Log.i("Acticity_login.java",">>>>>>>>>>>> idUsuario: "+usuario.getIdUsuario());
                         Log.i("Acticity_login.java",">>>>>>>>>>>> email: "+usuario.getEmail());
@@ -146,7 +136,7 @@ public class Activity_login extends ActionBarActivity {
                     Intent goInicial = null;
 
                     //Administrador
-                    if(usuario.getRol().getDescripcion().equalsIgnoreCase("ADMIN")){
+                    if(usuario.getRol().equalsIgnoreCase("ADMIN")){
                         goInicial = new Intent(Activity_login.this, Activity_admin.class);
                     }
 

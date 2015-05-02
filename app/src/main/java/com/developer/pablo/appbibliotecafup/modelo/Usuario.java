@@ -17,7 +17,7 @@ public class Usuario implements Serializable {
     private String email;
     private String codigo;
     private String clave;
-    private Rol rol;
+    private String rol;
 
     public Usuario() {
         this.idUsuario = 0;
@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
         this.rol = null;
     }
 
-    public Usuario(int idUsuario, Long cedula, String nombre, String apellido, Long telefono, String direccion, String email, String codigo, String clave, Rol rol) {
+    public Usuario(int idUsuario, Long cedula, String nombre, String apellido, Long telefono, String direccion, String email, String codigo, String clave, String rol) {
         this.idUsuario = idUsuario;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -117,11 +117,11 @@ public class Usuario implements Serializable {
         this.clave = clave;
     }
 
-    public Rol getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 }
